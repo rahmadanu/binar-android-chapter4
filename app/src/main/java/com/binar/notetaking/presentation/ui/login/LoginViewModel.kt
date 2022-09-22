@@ -15,16 +15,11 @@ class LoginViewModel(
 ) : AndroidViewModel(application){
 
     private var _user = MutableLiveData<UserEntity>()
-    val user: LiveData<UserEntity>
-        get() = _user
+    val user: LiveData<UserEntity> get() = _user
 
     fun getUser(username: String) {
         viewModelScope.launch {
-            _user.value = getUserFromDao(username)
+            _user.value = dataSource.getUser(username)
         }
-    }
-
-    private suspend fun getUserFromDao(username: String): UserEntity {
-        return dataSource.getUser(username)
     }
 }

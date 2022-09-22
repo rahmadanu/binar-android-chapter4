@@ -1,5 +1,6 @@
 package com.binar.notetaking.presentation.ui
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
@@ -24,12 +25,6 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host) as NavHostFragment
 
         navController = navHostFragment.navController
-
-        setupActionBarWithNavController(navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onDestroy() {

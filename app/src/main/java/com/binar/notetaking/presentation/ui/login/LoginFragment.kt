@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.binar.notetaking.R
-import com.binar.notetaking.data.local.UserDatabase
+import com.binar.notetaking.data.local.user.UserDatabase
 import com.binar.notetaking.databinding.FragmentLoginBinding
-import com.binar.notetaking.util.ViewModelFactory
+import com.binar.notetaking.util.LoginRegisterViewModelFactory
 
 class LoginFragment : Fragment() {
 
@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
         val dataSource = UserDatabase.getInstance(requireContext()).userDao
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = ViewModelFactory(dataSource, application)
+        val viewModelFactory = LoginRegisterViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(
             this, viewModelFactory
         )[LoginViewModel::class.java]

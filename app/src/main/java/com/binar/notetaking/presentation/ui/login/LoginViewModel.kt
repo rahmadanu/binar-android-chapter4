@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.binar.notetaking.data.local.UserDao
-import com.binar.notetaking.data.local.UserEntity
+import com.binar.notetaking.data.local.user.UserDao
+import com.binar.notetaking.data.local.user.UserEntity
 import kotlinx.coroutines.launch
 
 class LoginViewModel(

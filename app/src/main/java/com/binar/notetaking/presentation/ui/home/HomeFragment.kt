@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.binar.notetaking.R
+import com.binar.notetaking.data.local.note.NoteDatabase
 import com.binar.notetaking.databinding.FragmentHomeBinding
 import com.binar.notetaking.presentation.ui.login.LoginFragment
+import com.binar.notetaking.util.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -26,6 +29,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dataSource = NoteDatabase.getInstance(requireContext()).noteDao
+        val application = requireNotNull(this.activity).application
+
+        val viewModelFactory = HomeViewModelFactory(dataSource, application)
+        val viewModel = ViewModelProvider(
+            this, viewModelFactory
+        )[HomeViewModel::class.java]
+
     }
 
     override fun onDestroyView() {

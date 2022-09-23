@@ -1,13 +1,13 @@
-package com.binar.notetaking.data.local
+package com.binar.notetaking.data.local.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_information")
-class UserEntity(
+data class UserEntity(
     @PrimaryKey(autoGenerate = true)
-    var userId: Int = 0,
+    var userId: Long = 0,
 
     @ColumnInfo(name = "username")
     var username: String,

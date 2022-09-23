@@ -3,12 +3,13 @@ package com.binar.notetaking.util
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.binar.notetaking.data.local.UserDao
+import com.binar.notetaking.data.local.user.UserDao
+import com.binar.notetaking.presentation.ui.home.HomeViewModel
 import com.binar.notetaking.presentation.ui.login.LoginViewModel
 import com.binar.notetaking.presentation.ui.register.RegisterViewModel
 import java.lang.IllegalArgumentException
 
-class ViewModelFactory(
+class LoginRegisterViewModelFactory(
     private val dataSource: UserDao,
     private val application: Application
 ) : ViewModelProvider.Factory {

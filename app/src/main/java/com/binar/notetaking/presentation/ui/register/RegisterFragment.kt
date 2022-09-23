@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.binar.notetaking.data.local.UserDatabase
-import com.binar.notetaking.data.local.UserEntity
+import com.binar.notetaking.data.local.user.UserDatabase
+import com.binar.notetaking.data.local.user.UserEntity
 import com.binar.notetaking.databinding.FragmentRegisterBinding
-import com.binar.notetaking.util.ViewModelFactory
+import com.binar.notetaking.util.LoginRegisterViewModelFactory
 
 class RegisterFragment : Fragment() {
 
@@ -33,7 +33,7 @@ class RegisterFragment : Fragment() {
         val dataSource = UserDatabase.getInstance(requireContext()).userDao
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = ViewModelFactory(dataSource, application)
+        val viewModelFactory = LoginRegisterViewModelFactory(dataSource, application)
         val registerViewModel = ViewModelProvider(
             this, viewModelFactory
         )[RegisterViewModel::class.java]

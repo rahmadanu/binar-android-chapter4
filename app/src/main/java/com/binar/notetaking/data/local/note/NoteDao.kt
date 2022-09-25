@@ -1,21 +1,23 @@
 package com.binar.notetaking.data.local.note
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface NoteDao {
 
     @Insert
-    fun insert(note: NoteEntity)
+    suspend fun insertNote(note: NoteEntity): Long
 
     @Update
-    fun update(note: NoteEntity)
+    suspend fun updateNote(note: NoteEntity): Int
 
     @Delete
-    fun delete(note: NoteEntity)
+    suspend fun deleteNote(note: NoteEntity): Int
 
-    @Query("SELECT * FROM user_information")
-    fun getAllNotes(): List<NoteEntity>
+    @Query("SELECT * FROM note_information")
+    suspend fun getNoteList(): List<NoteEntity>
+
+    @Query("SELECT * FROM note_information WHERE noteId = :id")
+    suspend fun getNoteById(id: Long) : NoteEntity
 
 }

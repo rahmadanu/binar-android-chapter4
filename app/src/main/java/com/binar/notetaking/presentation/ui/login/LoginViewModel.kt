@@ -1,25 +1,22 @@
 package com.binar.notetaking.presentation.ui.login
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.binar.notetaking.data.local.user.UserDao
 import com.binar.notetaking.data.local.user.UserEntity
+import com.binar.notetaking.data.repository.LocalRepository
+import com.binar.notetaking.wrapper.Resource
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
-    private val dataSource: UserDao,
-    application: Application
-) : AndroidViewModel(application){
+class LoginViewModel(private val repository: LocalRepository) : ViewModel(){
 
-    private var _user = MutableLiveData<UserEntity>()
-    val user: LiveData<UserEntity> get() = _user
+    private var _getUserResult = MutableLiveData<Resource<UserEntity>>()
+    val getUser: LiveData<Resource<UserEntity>> get() = _getUserResult
 
     fun getUser(username: String) {
         viewModelScope.launch {
-            _user.value = dataSource.getUser(username)
+            _getUserResult.postValue(repository.getUser(username))
         }
     }
 }

@@ -1,29 +1,34 @@
-package com.binar.notetaking.data.local.note
+package com.binar.notetaking.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.binar.notetaking.data.local.note.NoteDao
+import com.binar.notetaking.data.local.note.NoteEntity
+import com.binar.notetaking.data.local.user.UserDao
+import com.binar.notetaking.data.local.user.UserEntity
 
-@Database(entities = [NoteEntity::class], version = 1, exportSchema = false)
-abstract class NoteDatabase: RoomDatabase() {
+@Database(entities = [UserEntity::class, NoteEntity::class], version = 3, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
 
+    abstract val userDao: UserDao
     abstract val noteDao: NoteDao
 
     companion object {
 
         @Volatile
-        var INSTANCE: NoteDatabase? = null
+        var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context): NoteDatabase {
+        fun getInstance(context: Context): AppDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        NoteDatabase::class.java,
-                        "note_database"
+                        AppDatabase::class.java,
+                        "app_database"
                     )
                         .fallbackToDestructiveMigration()
                         .build()

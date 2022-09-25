@@ -33,6 +33,16 @@
             app:layout_constraintEnd_toStartOf="@id/iv_edit"
             tools:text="This is description" />
 
+
+        <TextView
+            android:id="@+id/tv_note_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toEndOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="99" />
+
         <ImageView
             android:id="@+id/iv_edit"
             android:layout_width="wrap_content"

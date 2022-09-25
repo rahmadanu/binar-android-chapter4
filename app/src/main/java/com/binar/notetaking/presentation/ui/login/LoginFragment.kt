@@ -3,11 +3,13 @@ package com.binar.notetaking.presentation.ui.login
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -53,16 +55,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkLogin() {
-        //validation later
-        val username = binding.etUsername.text.toString()
-        viewModel.getUser(username)
+        if (validateInput()){
+            val username = binding.etUsername.text.toString()
+            viewModel.getUser(username)
 
-        viewModel.getUser.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> checkUser(it.payload)
-                is Resource.Error -> Toast.makeText(requireContext(), "Error while getting data", Toast.LENGTH_SHORT).show()
-                else -> {}
+            viewModel.getUser.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Success -> checkUser(it.payload)
+                    is Resource.Error -> Toast.makeText(requireContext(), "Error while getting data", Toast.LENGTH_SHORT).show()
+                    else -> {}
+                }
             }
+
         }
     }
 
@@ -74,12 +78,11 @@ class LoginFragment : Fragment() {
             val userLoggedIn = username == user.username && password == user.password
             if (userLoggedIn) {
                 navigateToHome()
-                Toast.makeText(context, "LOGIN BERHASIL", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Login Success", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "USERNAME ATAU PASSWORD ANDA SALAH", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Wrong username or password!", Toast.LENGTH_SHORT).show()
             }
             saveLoginInfo(userLoggedIn)
-
         }
     }
 
@@ -91,6 +94,20 @@ class LoginFragment : Fragment() {
 
     private fun isLoginInfoValid(): Boolean {
         return sharedPreferences.getBoolean(LOGGED_IN_KEY, false)
+    }
+
+    private fun validateInput(): Boolean {
+        var isValid = true
+        val username = binding.etUsername.text.toString()
+        val password = binding.etPassword.text.toString()
+        if (username.isEmpty()) {
+            isValid = false
+            binding.etUsername.error = "Username must not be empty"
+        }
+        if (password.isEmpty()) {
+            isValid = false
+            Toast.makeText(requireContext(), "Password must not be empty", Toast.LENGTH_SHORT).show()        }
+        return isValid
     }
 
     private fun navigateToHome() {

@@ -2,7 +2,9 @@ package com.binar.notetaking.presentation.ui.home.adapter;
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.notetaking.R
 import com.binar.notetaking.data.local.note.NoteEntity
 import com.binar.notetaking.databinding.ItemNoteBinding
 
@@ -34,8 +36,7 @@ class NoteAdapter(private val listener: NoteItemClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val binding =
-            ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NoteViewHolder(binding, listener)
     }
 
@@ -53,9 +54,7 @@ class NoteAdapter(private val listener: NoteItemClickListener) :
 
         fun bindView(item: NoteEntity) {
             with(item) {
-                binding.tvTitle.text = title
-                binding.tvDescription.text = description
-                binding.tvNoteId.text = noteId.toString()
+                binding.noteEntity = item
 
                 itemView.setOnClickListener { listener.onItemClicked(this) }
                 binding.ivEdit.setOnClickListener { listener.onEditClicked(item, adapterPosition) }

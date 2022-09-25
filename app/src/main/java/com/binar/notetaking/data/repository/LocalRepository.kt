@@ -9,6 +9,8 @@ import com.binar.notetaking.data.local.user.UserEntity
 import com.binar.notetaking.wrapper.Resource
 
 interface LocalRepository {
+    suspend fun checkIfNoteListIsEmpty(): Boolean
+
     suspend fun registerUser(user: UserEntity): Resource<Number>
 
     suspend fun getUser(username: String): Resource<UserEntity>
@@ -28,6 +30,10 @@ class LocalRepositoryImpl(
     private val userDataSource: UserDataSource,
     private val noteDataSource: NoteDataSource,
 ): LocalRepository {
+    override suspend fun checkIfNoteListIsEmpty(): Boolean {
+        return noteDataSource.getNoteList().isEmpty()
+    }
+
     override suspend fun registerUser(user: UserEntity): Resource<Number> {
         return proceed {
             userDataSource.registerUser(user)
@@ -69,6 +75,8 @@ class LocalRepositoryImpl(
             noteDataSource.getNoteById(id)
         }
     }
+
+
 
     private suspend fun <T> proceed(coroutine: suspend () -> T): Resource<T> {
         return try {

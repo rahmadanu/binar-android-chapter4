@@ -9,7 +9,7 @@ import com.binar.notetaking.data.local.note.NoteEntity
 import com.binar.notetaking.data.local.user.UserDao
 import com.binar.notetaking.data.local.user.UserEntity
 
-@Database(entities = [UserEntity::class, NoteEntity::class], version = 3, exportSchema = false)
+@Database(entities = [UserEntity::class, NoteEntity::class], version = 4, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val userDao: UserDao

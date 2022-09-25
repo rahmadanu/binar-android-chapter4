@@ -1,12 +1,11 @@
 package com.binar.notetaking.presentation.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.binar.notetaking.data.local.note.NoteEntity
 import com.binar.notetaking.data.repository.LocalRepository
 import com.binar.notetaking.wrapper.Resource
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class NoteViewModel(private val repository: LocalRepository): ViewModel(){

@@ -14,7 +14,7 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(note: NoteEntity): Int
 
-    @Query("SELECT * FROM note_information")
+    @Query("SELECT * FROM note_information ORDER BY noteId DESC")
     suspend fun getNoteList(): List<NoteEntity>
 
     @Query("SELECT * FROM note_information WHERE noteId = :id")

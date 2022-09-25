@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.binar.notetaking.R
 import com.binar.notetaking.data.local.user.UserEntity
 import com.binar.notetaking.databinding.FragmentRegisterBinding
 import com.binar.notetaking.di.ServiceLocator
 import com.binar.notetaking.util.viewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -35,20 +38,49 @@ class RegisterFragment : Fragment() {
         binding.btnRegister.setOnClickListener {
             registerUser()
         }
-
-/*        binding.lifecycleOwner = this ---requires databindingutil
-        binding.registerViewModel = registerViewModel*/
     }
 
     private fun registerUser() {
-        val user = UserEntity(
-            username = binding.etUsername.text.toString(),
-            email = binding.etEmail.text.toString(),
-            password = binding.etPassword.text.toString()
-        )
-        viewModel.registerUser(user)
-        Toast.makeText(context, "Register SUCCESS", Toast.LENGTH_SHORT).show()
-        //validation if empty et
+        if (validateInput()) {
+            val user = UserEntity(
+                username = binding.etUsername.text.toString(),
+                email = binding.etEmail.text.toString(),
+                password = binding.etPassword.text.toString()
+            )
+            viewModel.registerUser(user)
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            Toast.makeText(context, "Register Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateInput(): Boolean {
+        var isValid = true
+        val username = binding.etUsername.text.toString()
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+        val confirmPassword = binding.etConfirmPassword.text.toString()
+
+        if (username.isEmpty()) {
+            isValid = false
+            binding.etUsername.error = "Username or password must not be empty"
+        }
+        if (email.isEmpty()) {
+            isValid = false
+            binding.etEmail.error = "Email must not be empty"
+        }
+        if (password.isEmpty()) {
+            isValid = false
+            Toast.makeText(requireContext(), "Password must not be empty", Toast.LENGTH_SHORT).show()
+        }
+        if (confirmPassword.isEmpty()) {
+            isValid = false
+            Toast.makeText(requireContext(), "Confirm password must not be empty", Toast.LENGTH_SHORT).show()
+        }
+        if (password != confirmPassword) {
+            isValid = false
+            Toast.makeText(requireContext(), "Password does not match!", Toast.LENGTH_SHORT).show()
+        }
+        return isValid
     }
 
     override fun onDestroyView() {

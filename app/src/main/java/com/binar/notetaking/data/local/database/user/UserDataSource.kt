@@ -1,6 +1,4 @@
-package com.binar.notetaking.data.local.user
-
-import com.binar.notetaking.wrapper.Resource
+package com.binar.notetaking.data.local.database.user
 
 interface UserDataSource {
     suspend fun registerUser(user: UserEntity): Long

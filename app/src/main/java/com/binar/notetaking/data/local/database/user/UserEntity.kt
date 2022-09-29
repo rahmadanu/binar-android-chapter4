@@ -1,4 +1,4 @@
-package com.binar.notetaking.data.local.user
+package com.binar.notetaking.data.local.database.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,11 +10,11 @@ data class UserEntity(
     var userId: Long = 0,
 
     @ColumnInfo(name = "username")
-    var username: String,
+    var username: String? = "",
 
     @ColumnInfo(name = "email")
     var email: String,
 
     @ColumnInfo(name = "password")
-    var password: String
+    var password: String? = ""
 )

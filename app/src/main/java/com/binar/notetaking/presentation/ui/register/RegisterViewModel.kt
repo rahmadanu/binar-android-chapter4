@@ -1,11 +1,8 @@
 package com.binar.notetaking.presentation.ui.register
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.binar.notetaking.data.local.user.UserDao
-import com.binar.notetaking.data.local.user.UserEntity
+import com.binar.notetaking.data.local.database.user.UserEntity
 import com.binar.notetaking.data.repository.LocalRepository
 import kotlinx.coroutines.launch
 

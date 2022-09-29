@@ -1,11 +1,10 @@
 package com.binar.notetaking.presentation.ui.home
 
 import androidx.lifecycle.*
-import com.binar.notetaking.data.local.note.NoteEntity
+import com.binar.notetaking.data.local.database.note.NoteEntity
+import com.binar.notetaking.data.local.database.user.UserEntity
 import com.binar.notetaking.data.repository.LocalRepository
 import com.binar.notetaking.wrapper.Resource
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class NoteViewModel(private val repository: LocalRepository): ViewModel(){
@@ -53,5 +52,9 @@ class NoteViewModel(private val repository: LocalRepository): ViewModel(){
         viewModelScope.launch {
             _getNoteListResult.postValue((repository.getNoteList()))
         }
+    }
+
+    fun setIfUserLogin(userLoggedIn: Boolean){
+        return repository.setIfUserLogin(userLoggedIn)
     }
 }

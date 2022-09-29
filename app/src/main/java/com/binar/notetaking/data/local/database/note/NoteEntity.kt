@@ -1,4 +1,4 @@
-package com.binar.notetaking.data.local.note
+package com.binar.notetaking.data.local.database.note
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -1,4 +1,4 @@
-package com.binar.notetaking.data.local.note
+package com.binar.notetaking.data.local.database.note
 
 interface NoteDataSource {
     suspend fun insertNote(note: NoteEntity): Long

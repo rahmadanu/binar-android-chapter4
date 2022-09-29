@@ -1,19 +1,19 @@
-package com.binar.notetaking.data.local
+package com.binar.notetaking.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.binar.notetaking.data.local.note.NoteDao
-import com.binar.notetaking.data.local.note.NoteEntity
-import com.binar.notetaking.data.local.user.UserDao
-import com.binar.notetaking.data.local.user.UserEntity
+import com.binar.notetaking.data.local.database.note.NoteDao
+import com.binar.notetaking.data.local.database.note.NoteEntity
+import com.binar.notetaking.data.local.database.user.UserDao
+import com.binar.notetaking.data.local.database.user.UserEntity
 
 @Database(entities = [UserEntity::class, NoteEntity::class], version = 4, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val userDao: UserDao
-    abstract val noteDao: NoteDao
+    abstract fun userDao(): UserDao
+    abstract fun noteDao(): NoteDao
 
     companion object {
 

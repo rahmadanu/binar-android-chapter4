@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.notetaking.R
-import com.binar.notetaking.data.local.note.NoteEntity
+import com.binar.notetaking.data.local.database.note.NoteEntity
 import com.binar.notetaking.databinding.FragmentNoteBinding
 import com.binar.notetaking.di.ServiceLocator
 import com.binar.notetaking.presentation.ui.home.adapter.NoteAdapter
 import com.binar.notetaking.presentation.ui.home.adapter.NoteItemClickListener
-import com.binar.notetaking.util.NoteCustomDialog
-import com.binar.notetaking.util.OnItemChangedListener
+import com.binar.notetaking.presentation.ui.login.LoginViewModel
 import com.binar.notetaking.util.viewModelFactory
 import com.binar.notetaking.wrapper.Resource
 
@@ -30,6 +31,8 @@ class NoteFragment : Fragment() {
     private val viewModel: NoteViewModel by viewModelFactory {
         NoteViewModel(ServiceLocator.provideServiceLocator(requireContext()))
     }
+
+    private val args: NoteFragmentArgs by navArgs()
     lateinit var adapter: NoteAdapter
 
     override fun onCreateView(
@@ -46,9 +49,15 @@ class NoteFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        setWelcomeMessage()
         setRecyclerView()
         setOnClickListener()
         observeData()
+    }
+
+    private fun setWelcomeMessage() {
+        val username = args.username
+        binding.username = getString(R.string.welcome_message, username)
     }
 
     private fun setRecyclerView() {
@@ -75,6 +84,14 @@ class NoteFragment : Fragment() {
     private fun setOnClickListener() {
         binding.fabAdd.setOnClickListener {
             showInputAndEditDialog()
+        }
+        binding.tvLogout.setOnClickListener {
+            viewModel.setIfUserLogin(false)
+            val option = NavOptions.Builder()
+                .setPopUpTo(R.id.noteFragment, true)
+                .build()
+            findNavController().navigate(R.id.action_noteFragment_to_loginFragment, null, option)
+            Toast.makeText(requireContext(), "Logout Success", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -130,7 +147,7 @@ class NoteFragment : Fragment() {
 
     fun showInputAndEditDialog(noteId: Long? = null) {
         NoteCustomDialog(noteId).apply {
-            setListener(object : OnItemChangedListener{
+            setListener(object : OnItemChangedListener {
                 override fun onItemChanged() {
                     getNoteList()
                 }

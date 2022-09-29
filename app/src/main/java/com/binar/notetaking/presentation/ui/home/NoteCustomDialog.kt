@@ -1,4 +1,4 @@
-package com.binar.notetaking.util
+package com.binar.notetaking.presentation.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.binar.notetaking.R
-import com.binar.notetaking.data.local.note.NoteEntity
+import com.binar.notetaking.data.local.database.note.NoteEntity
 import com.binar.notetaking.databinding.CustomDialogNoteBinding
 import com.binar.notetaking.di.ServiceLocator
-import com.binar.notetaking.presentation.ui.home.NoteViewModel
+import com.binar.notetaking.util.viewModelFactory
 import com.binar.notetaking.wrapper.Resource
 
 class NoteCustomDialog(private val initialId: Long? = null): DialogFragment() {

@@ -2,10 +2,8 @@ package com.binar.notetaking.presentation.ui.home.adapter;
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.notetaking.R
-import com.binar.notetaking.data.local.note.NoteEntity
+import com.binar.notetaking.data.local.database.note.NoteEntity
 import com.binar.notetaking.databinding.ItemNoteBinding
 
 

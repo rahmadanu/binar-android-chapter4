@@ -1,4 +1,4 @@
-package com.binar.notetaking.data.local.user
+package com.binar.notetaking.data.local.database.user
 
 import androidx.room.Dao
 import androidx.room.Insert

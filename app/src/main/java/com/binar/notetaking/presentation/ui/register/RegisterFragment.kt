@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.binar.notetaking.R
-import com.binar.notetaking.data.local.user.UserEntity
+import com.binar.notetaking.data.local.database.user.UserEntity
 import com.binar.notetaking.databinding.FragmentRegisterBinding
 import com.binar.notetaking.di.ServiceLocator
 import com.binar.notetaking.util.viewModelFactory
-import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 

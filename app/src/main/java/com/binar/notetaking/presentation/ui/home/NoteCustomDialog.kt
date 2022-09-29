@@ -76,7 +76,7 @@ class NoteCustomDialog(private val initialId: Long? = null): DialogFragment() {
     private fun parseFormIntoEntity(): NoteEntity {
         return NoteEntity(
             title = binding.etTitle.text.toString(),
-            description = binding.etDescription.text.toString()
+            description = binding.etDescription.text.toString(),
         ).apply {
             initialId?.let {
                 noteId = it

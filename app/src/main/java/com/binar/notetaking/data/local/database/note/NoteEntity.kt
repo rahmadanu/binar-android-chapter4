@@ -16,5 +16,5 @@ data class NoteEntity(
     var title: String? = null,
 
     @ColumnInfo(name = "description")
-    var description: String? = null
+    var description: String? = null,
 ) : Parcelable
